@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package todo;
+
+option go_package = "./pb";
+
+message TodoTask {
+    int64   id      = 1;
+    string  message = 2;
+    bool    done    = 3;
+}
+
+message Message {
+    string message = 1;
+}
+
+message Void {}
+
+message ListResponse {
+    repeated TodoTask tasks = 1;
+}
+
+message ListRequest {
+    string  message = 1;
+    bool    done    = 2;
+}
+
+service TasksService {
+    rpc List(ListRequest) returns(ListResponse) {}
+    rpc Add(Message) returns(Void) {}
+    rpc Done(TodoTask) returns(Void) {}
+}
